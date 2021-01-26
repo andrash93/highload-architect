@@ -1,0 +1,34 @@
+CREATE TABLE `SocialNetwork`.users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+	login varchar(100) NULL,
+	name varchar(100) NULL,
+	surname varchar(100) NULL,
+	gender varchar(15) NULL,
+	age INT NULL,
+	city varchar(200) NULL
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=cp1251
+COLLATE=cp1251_general_ci;
+
+CREATE TABLE `SocialNetwork`.auth (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+	login varchar(100) NULL,
+	password varchar(100) NULL,
+	role varchar(100) NULL
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=cp1251
+COLLATE=cp1251_general_ci;
+
+
+CREATE TABLE `SocialNetwork`.friends (
+	sender_person_id varchar(100) NULL,
+	receiver_person_id varchar(100) NULL,
+	creation_date TIMESTAMP NULL,
+	confirmation_date TIMESTAMP NULL,
+	status varchar(100) NULL
+)
+ENGINE=InnoDB
+DEFAULT CHARSET=cp1251
+COLLATE=cp1251_general_ci;

@@ -1,0 +1,20 @@
+server:
+  port: ${PORT}
+spring:
+  datasource:
+    driver-class-name: ${DB_DRIVER}
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+jwt:
+  sessionTime: 1200000000
+  secret: secret_key
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
