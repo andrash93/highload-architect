@@ -49,6 +49,7 @@ public class AuthDaoMySql implements AuthDao {
 
     @Override
     public Auth findAuthByLogin(String login) {
+        log.info("invoke findAuthByLogin {}", login);
         Map<String, Object> params = new HashMap<>(1);
         params.put("login", login);
         String sql = "select login, password, role from SocialNetwork.auth where login = :login";
