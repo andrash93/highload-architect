@@ -6,9 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -22,5 +19,4 @@ public class Account {
     private String gender;
     private String city;
     private Integer age;
-    private List<AccountFriend> friendIds = new ArrayList<>();
 }
