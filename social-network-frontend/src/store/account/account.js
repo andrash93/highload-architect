@@ -69,6 +69,31 @@ const actions = {
         })
     },
 
+    SEARCH_ACCOUNTS: (context, data) => {
+        return new Promise((resolve, reject) => {
+            var url = '/api/account/search?';
+            if(data.firstname!==""){
+                url+="firstName="+data.firstname+"&";
+            }
+            if(data.surname!==""){
+                url+="lastName="+data.surname;
+            }
+            axios
+                .get(url, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.jwtToken
+                    }
+                }).then(response => {
+                console.log(response);
+                context.commit('setAccounts', response.data)
+                resolve({success: true})
+            }).catch(error => {
+                console.log(error)
+                reject({errorMessage: error})
+            })
+        })
+    },
+
     GET_ACCOUNT: (context, id) => {
         return new Promise((resolve, reject) => {
             var url = '/api/account/info/' + id;
