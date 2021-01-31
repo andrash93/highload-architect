@@ -81,6 +81,17 @@ public class AccountController {
         return response;
     }
 
+    @GetMapping("/account/search")
+    @Timed(value = "social.network.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
+    public List<AccountInfoResponse> searchAccount(Auth auth, @RequestParam(required = false) String firstName, @RequestParam(required = false) String lastName) {
+      //  log.info("currentAccountId {} invoke searchAccount firstName {} lastName {}", auth.getUserId(), firstName, lastName);
+        List<AccountInfoResponse> response = new ArrayList<>();
+        List<Account> allAccounts = accountService.findByFirstNameAndLastName(firstName, lastName);
+        allAccounts.forEach(account -> response.add(AccountControllerUtils.getAccountInfoResponse(account)));
+        log.info("currentAccountId {} searchAccount firstName {} lastName {} result size {}", auth.getUserId(), firstName, lastName, response.size());
+        return response;
+    }
+
     private Auth createAuth(AccountRegisterRequest accountRegisterRequest) {
         Auth auth = AccountControllerUtils.extractAuthUser(accountRegisterRequest);
         return authService.createAuth(auth);

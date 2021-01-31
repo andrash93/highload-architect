@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 import ru.otus.architect.dao.AccountDao;
 import ru.otus.architect.data.model.Account;
 import ru.otus.architect.exception.account.AccountNotFoundException;
@@ -92,7 +93,7 @@ public class AccountDaoMySql implements AccountDao {
         sql.deleteCharAt(sql.length() - 1);
         sql.append(")");
         try {
-            return jdbcTemplate.query(sql.toString(), new AccountDaoMySql.AccountMapper());
+            return jdbcTemplate.query(sql.toString(), new AccountMapper());
         } catch (Exception e) {
             log.error("ERROR in findAccountsByIds ", e);
             return Collections.emptyList();
@@ -100,8 +101,29 @@ public class AccountDaoMySql implements AccountDao {
     }
 
     @Override
-    public List<Account> getAllAccounts() {
-        String sql = "select id, login, name, surname, gender, age, city from SocialNetwork.users";
+    public List<Account> findByFirstNameAndLastName(String firstName, String lastName, int limit) {
+
+        String sql = "select id, login, name, surname, gender, age, city from SocialNetwork.users " +
+                "WHERE name like '";
+        if (!StringUtils.isEmpty(firstName)) {
+            sql += firstName;
+        }
+        sql += "%' and surname like '";
+        if (!StringUtils.isEmpty(lastName)) {
+            sql += lastName;
+        }
+        sql += "%' LIMIT " + limit;
+        try {
+            return jdbcTemplate.query(sql, new AccountMapper());
+        } catch (Exception e) {
+            log.error("ERROR in findByFirstNameAndLastName ", e);
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Account> getAllAccounts(int limit) {
+        String sql = "select id, login, name, surname, gender, age, city from SocialNetwork.users LIMIT " + limit;
         try {
             return jdbcTemplate.query(sql, new AccountMapper());
         } catch (Exception e) {

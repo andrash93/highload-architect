@@ -14,6 +14,8 @@ public interface AccountService {
 
     List<Account> getAccountsByIds(List<Long> ids);
 
+    List<Account> findByFirstNameAndLastName(String firstName, String lastName);
+
     List<Account> getAllAccounts();
 
 }

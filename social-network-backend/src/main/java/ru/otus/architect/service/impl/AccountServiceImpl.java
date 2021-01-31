@@ -39,8 +39,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public List<Account> findByFirstNameAndLastName(String firstName, String lastName) {
+        return accountDao.findByFirstNameAndLastName(firstName, lastName, 500);
+    }
+
+    @Override
     public List<Account> getAllAccounts() {
-        return accountDao.getAllAccounts();
+        return accountDao.getAllAccounts(500);
     }
 
 }

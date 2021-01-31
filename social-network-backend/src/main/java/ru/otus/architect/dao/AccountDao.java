@@ -14,6 +14,8 @@ public interface AccountDao {
 
     List<Account> findAccountsByIds(List<Long> ids);
 
-    List<Account> getAllAccounts();
+    List<Account> findByFirstNameAndLastName(String firstName, String lastName, int limit);
+
+    List<Account> getAllAccounts(int limit);
 
 }
