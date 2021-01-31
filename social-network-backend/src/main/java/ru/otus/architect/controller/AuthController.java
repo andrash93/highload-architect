@@ -1,5 +1,6 @@
 package ru.otus.architect.controller;
 
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,7 @@ public class AuthController {
 
     @PostMapping("/authenticate")
     @ResponseStatus(HttpStatus.OK)
+    @Timed(value = "social.network.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
     public AuthResponse authenticate(@RequestBody AuthRequest authRequest) {
         authService.authenticate(new Auth(authRequest.getName(), authRequest.getPassword()));
         Account account = accountService.getAccountByLogin(authRequest.getName());
@@ -41,6 +43,7 @@ public class AuthController {
 
     @GetMapping("/authenticate/refresh")
     @ResponseStatus(HttpStatus.OK)
+    @Timed(value = "social.network.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
     public AuthResponse refreshAuthenticationToken(Auth auth) {
         log.info("currentAccountId {} invoke refreshAuthenticationToken", auth.getUserId());
         Account account = accountService.getAccountById(auth.getUserId());

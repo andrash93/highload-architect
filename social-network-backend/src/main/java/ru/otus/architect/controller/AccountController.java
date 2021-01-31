@@ -40,7 +40,7 @@ public class AccountController {
 
     @PostMapping("/account/register")
     @ResponseStatus(HttpStatus.OK)
-    @Timed(value = "app.controller.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
+    @Timed(value = "social.network.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
     public AccountRegisterResponse registerAccount(@RequestBody AccountRegisterRequest accountRegisterRequest) {
         log.info("invoke registerAccount {}", accountRegisterRequest);
 
@@ -52,6 +52,7 @@ public class AccountController {
     }
 
     @GetMapping("/account/current")
+    @Timed(value = "social.network.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
     public AccountInfoResponse accountInfo(Auth auth) {
         log.info("currentAccountId {} invoke account current info", auth.getUserId());
 
@@ -60,6 +61,7 @@ public class AccountController {
     }
 
     @GetMapping("/account/info/{accountId}")
+    @Timed(value = "social.network.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
     public AccountInfoResponse accountInfo(@PathVariable Long accountId, Auth auth) {
         log.info("currentAccountId {} invoke accountInfo {}", auth.getUserId(), accountId);
 
@@ -70,6 +72,7 @@ public class AccountController {
     }
 
     @GetMapping("/account/all")
+    @Timed(value = "social.network.request", histogram = true, percentiles = {0.5, 0.95, 0.99, 1})
     public List<AccountInfoResponse> getAllAccount(Auth auth) {
         log.info("currentAccountId {} invoke getAllAccount", auth.getUserId());
         List<AccountInfoResponse> response = new ArrayList<>();
