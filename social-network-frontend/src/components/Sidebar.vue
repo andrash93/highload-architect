@@ -17,6 +17,11 @@
             Друзья
           </a></router-link>
         </li>
+        <li class="nav-item">
+          <router-link to="/wall"><a class="nav-link" href="#">
+            Лента новостей
+          </a></router-link>
+        </li>
       </ul>
 
     </div>

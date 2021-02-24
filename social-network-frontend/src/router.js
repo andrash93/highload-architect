@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import Users from './view/Accounts.vue';
-import Friends from './view/Friends.vue';
-import AccountInfo from './view/AccountInfo.vue';
+import Users from './view/account/Accounts.vue';
+import Friends from './view/friend/Friends.vue';
+import AccountInfo from './view/account/AccountInfo.vue';
+import Wall from './view/wall/Wall.vue';
 import Login from './components/LoginComponent.vue';
 import Register from './components/RegisterComponent.vue';
 
@@ -28,6 +29,11 @@ export default new Router({
             path: '/users',
             name: 'Users',
             component: Users,
+        },
+        {
+            path: '/wall',
+            name: 'Wall',
+            component: Wall,
         },
         {
             path: '/friends/:type',

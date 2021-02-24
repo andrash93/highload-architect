@@ -4,7 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.otus.architect.dao.AccountDao;
 import ru.otus.architect.data.model.Account;
+import ru.otus.architect.data.model.Follow;
 import ru.otus.architect.service.AccountService;
+import ru.otus.architect.service.FollowService;
 
 import java.util.List;
 
@@ -13,14 +15,19 @@ import java.util.List;
 public class AccountServiceImpl implements AccountService {
 
     private final AccountDao accountDao;
+    private final FollowService followService;
 
-    public AccountServiceImpl(AccountDao accountDao) {
+    public AccountServiceImpl(AccountDao accountDao,
+                              FollowService followService) {
         this.accountDao = accountDao;
+        this.followService = followService;
     }
 
     @Override
     public Account createAccount(Account account) {
-        return accountDao.addAccount(account);
+        Account reg = accountDao.addAccount(account);
+        followService.addFollow(new Follow(reg.getId(), reg.getId()));
+        return reg;
     }
 
     @Override

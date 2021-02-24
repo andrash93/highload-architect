@@ -1,4 +1,4 @@
-package ru.otus.architect.config;
+package ru.otus.architect.config.security;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;

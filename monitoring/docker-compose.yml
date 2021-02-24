@@ -88,6 +88,16 @@ services:
     labels:
       org.label-schema.group: "monitoring"
 
+  redis-exporter:
+    image: oliver006/redis_exporter
+    command: -redis.addr redis://redis:6379
+    networks:
+      - nw
+    ports:
+      - 9121:9121
+    labels:
+      org.label-schema.group: "monitoring"
+
 networks:
   nw:
     external: true
