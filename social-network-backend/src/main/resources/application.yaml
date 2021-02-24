@@ -1,11 +1,21 @@
 server:
   port: ${PORT}
+
 spring:
   datasource:
     driver-class-name: ${DB_DRIVER}
     url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+
+redis:
+  port: ${REDIS_PORT}
+  host: ${REDIS_HOST}
+  database: ${REDIS_IDX}
+
+kafka:
+  host: ${KAFKA_HOST}
+
 jwt:
   sessionTime: 1200000000
   secret: secret_key

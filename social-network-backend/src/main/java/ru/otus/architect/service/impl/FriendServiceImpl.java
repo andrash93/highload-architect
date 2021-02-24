@@ -7,8 +7,10 @@ import ru.otus.architect.data.FriendRequest;
 import ru.otus.architect.data.FriendStatus;
 import ru.otus.architect.data.model.Account;
 import ru.otus.architect.data.model.AccountFriend;
+import ru.otus.architect.data.model.Follow;
 import ru.otus.architect.exception.friend.FriendStatusNotFoundException;
 import ru.otus.architect.service.AccountService;
+import ru.otus.architect.service.FollowService;
 import ru.otus.architect.service.FriendService;
 
 import java.sql.Timestamp;
@@ -21,11 +23,14 @@ public class FriendServiceImpl implements FriendService {
 
     private final FriendDao friendDao;
     private final AccountService accountService;
+    private final FollowService followService;
 
     public FriendServiceImpl(FriendDao friendDao,
-                             AccountService accountService) {
+                             AccountService accountService,
+                             FollowService followService) {
         this.friendDao = friendDao;
         this.accountService = accountService;
+        this.followService = followService;
     }
 
     @Override
@@ -41,6 +46,7 @@ public class FriendServiceImpl implements FriendService {
     @Override
     public AccountFriend deleteFriend(Long accountId, Long friendId) {
         this.friendDao.deleteFriend(accountId, friendId);
+        this.followService.deleteFollow(new Follow(accountId, friendId));
         return new AccountFriend(FriendStatus.NONE);
     }
 
@@ -51,6 +57,8 @@ public class FriendServiceImpl implements FriendService {
                 null,
                 new Timestamp(System.currentTimeMillis()), FriendStatus.FRIEND);
         this.friendDao.updateFriend(accountFriend);
+        this.followService.addFollow(new Follow(currentAccountId, friendId));
+        this.followService.addFollow(new Follow(friendId, currentAccountId));
         return accountFriend;
     }
 

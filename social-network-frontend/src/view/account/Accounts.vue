@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import AccountRow from "@/view/AccountRow";
+import AccountRow from "@/view/account/AccountRow";
 import store from "@/store/store";
 import Router from "@/router";
 

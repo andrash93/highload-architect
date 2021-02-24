@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import FriendRow from "@/view/FriendRow";
+import FriendRow from "@/view/friend/FriendRow";
 import store from "@/store/store";
 import Router from "@/router";
 
