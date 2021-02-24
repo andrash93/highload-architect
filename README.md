@@ -1,7 +1,7 @@
 # Социальная сеть
 
     - Docker образ [Бэк + Фронт](https://hub.docker.com/repository/docker/andrash93/social-network)
-    - Развернутое приложение  - http://136.244.93.242
+    - Развернутое приложение  - http://83.102.204.46/
 
 ### Приложение состоит из backend сервиса 
 
